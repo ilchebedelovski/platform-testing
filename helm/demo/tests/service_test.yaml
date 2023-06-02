@@ -1,0 +1,28 @@
+suite: test demo service
+templates:
+  - service.yaml
+tests:
+  - it: service should render
+    asserts:
+      - isKind:
+          of: Service
+      - hasDocuments:
+          count: 1
+  - it: service port check
+    values:
+      - ./values/values.yaml
+    asserts:
+      - isKind:
+          of: Service
+      - equal:
+          path: spec.type
+          value: ClusterIP
+  - it: is protocol TCP
+    values:
+      - ./values/values.yaml
+    asserts:
+      - isKind:
+          of: Service
+      - equal:
+          path: spec.ports[0].protocol
+          value: TCP

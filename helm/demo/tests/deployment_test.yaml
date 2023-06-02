@@ -1,0 +1,19 @@
+suite: test demo deployment
+templates:
+  - deployment.yaml
+tests:
+  - it: deployment should render
+    asserts:
+      - isKind:
+          of: Deployment
+      - hasDocuments:
+          count: 1
+  - it: init container should be present
+    values:
+      - ./values/values.yaml
+    asserts:
+      - isKind:
+          of: Deployment
+      - equal:
+          path: spec.template.spec.initContainers[0].name
+          value: busybox

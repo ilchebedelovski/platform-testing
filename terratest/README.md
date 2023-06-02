@@ -1,0 +1,2 @@
+- go test . -v
+- it can be used in a pipeline for deployment verification
